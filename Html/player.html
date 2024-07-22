@@ -1,0 +1,134 @@
+<!-- Copyright Epic Games, Inc. All Rights Reserved. -->
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<!-- <meta charset="UTF-8"> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<!-- <title>数字人</title> -->
+	<link type="text/css" rel="stylesheet" href="./css/player.css">
+	<style>
+		.root {
+			position: fixed;
+			top: 50%;
+			left: 0;
+			color: #c2c2c2;
+		}
+
+		.boxb {
+			top: 55%;
+		}
+	</style>
+</head>
+
+<body onload="">
+	<div id="playerUI" class="noselect">
+		<div class="loginbox">
+			<div class="userbox">
+				<div class="login_title_img ">
+					<img src="./imgs/log.png" alt="">
+					<span class="login_title">数字人</span>
+				</div>
+				<div class="user_input_box">
+					<input type="text" placeholder="请输入账号" class="login_username" onkeydown="handleKeyDown_a(event)">
+				</div>
+				<div class="place_username"></div>
+				<div class="user_input_box">
+					<input type="password" placeholder="请输入密码" class="login_password"
+						onkeydown="handleKeyDown_b(event)"><img class="password_button" src="./imgs/yj.png" alt="">
+				</div>
+				<div class="place_password"></div>
+
+				<select id="dropdown" onkeydown="handleKeyDown_c(event)">
+					<option value="请选择设备" selected>请选择设备</option>
+				</select>
+				<div>
+					<button class="login_button" onkeydown="handleKeyDown_d(event)">登录</button>
+				</div>
+				<div><a class="register_button" href="">注册</a></div>
+			</div>
+		</div>
+	</div>
+	<div id="loader"></div>
+	<div id="loader_cancellation">取消</div>
+	<div class="ak ak_op"><img src="./imgs/AK3.png" alt=""></div>
+	<!-- <div class="root boxa"></div>
+	<div class="root boxb"></div> -->
+	<div class="chat_dialog_box">
+		<div class="chat_dialog_box_panel">
+			<div class="chat_dialog_panel">
+
+			</div>
+		</div>
+	</div>
+
+
+</body>
+<script src="./js/global.js"></script>
+<script src="./js/method.js"></script>
+<script src="./js/uiAnimation.js"></script>
+<script src="./js/chat_display.js"></script>
+<script type="text/javascript">
+	// var boxa = document.querySelector('.boxa')
+	// var boxb = document.querySelector('.boxb')
+	"object" != typeof ue || "object" != typeof ue.interface ? ("object" != typeof ue && (ue = {}), ue.interface = {}, ue.interface.broadcast = function (e, t) { if ("string" == typeof e) { var o = [e, ""]; void 0 !== t && (o[1] = t); var n = encodeURIComponent(JSON.stringify(o)); "object" == typeof history && "function" == typeof history.pushState ? (history.pushState({}, "", "#" + n), history.pushState({}, "", "#" + encodeURIComponent("[]"))) : (document.location.hash = n, document.location.hash = encodeURIComponent("[]")) } }) : function (e) { ue.interface = {}, ue.interface.broadcast = function (t, o) { "string" == typeof t && (void 0 !== o ? e.broadcast(t, JSON.stringify(o)) : e.broadcast(t, "")) } }(ue.interface), (window.ue4 = ue.interface.broadcast);
+	ue.interface.uejs = function (ueData) {
+		voice_control(ueData)
+		// boxa.innerHTML = `${getNowTime()}`
+	};
+	ue.interface.uejsdz = function (ueData) {
+		dz(ueData)
+		// boxb.innerHTML = `${getNowTime()}`
+	};
+	ue.interface.ue2js = function (ueData) {
+		var jsonObj = JSON.parse(ueData);
+		function jsue() {
+			if (lmkb_data) {
+				const str = JSON.stringify(lmkb_data);
+				ue4("js2ue", str)
+				return
+			} else {
+				setTimeout(() => {
+					jsue()
+				}, 1000);
+			}
+		}
+		jsue()
+	};
+	ue.interface.ue3js = function (ueData) {
+		var jsonObj = JSON.parse(ueData);
+		function jsue() {
+			if (kfg_data) {
+				const str = JSON.stringify(kfg_data);
+				ue4("js3ue", str)
+				return
+			} else {
+				setTimeout(() => {
+					jsue()
+				}, 1000);
+			}
+		}
+		jsue()
+	};
+	ue.interface.ue4js = function (ueData) {
+		logout()
+	};
+	ue.interface.ak_blue = function () {
+		ak(1)
+	};
+	ue.interface.ak_grey = function () {
+		ak(2)
+	};
+	ue.interface.ak_red = function () {
+		ak(3)
+	};
+
+	//设备id
+	const userAgent = navigator.userAgent;
+	console.log('设备id' + userAgent);
+</script>
+
+</html>

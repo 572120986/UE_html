@@ -1,0 +1,601 @@
+/*Copyright Epic Games, Inc. All Rights Reserved.*/
+html,
+body {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	/* background-color: #000000; */
+}
+
+:root {
+	/*Using colour scheme https://color.adobe.com/TD-Colors---Option-3-color-theme-10394433/*/
+	--colour1: #000000;
+	--colour2: #FFFFFF;
+	--colour3: #0585fe;
+	--colour4: #35b350;
+	--colour5: #ffab00;
+	--colour6: #1e1d22;
+	--colour7: #3c3b40;
+}
+
+body {
+	margin: 0px;
+	font-family: 'Montserrat', sans-serif;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+}
+
+
+#playerUI {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+canvas {
+	image-rendering: crisp-edges;
+	position: absolute;
+}
+
+video {
+	width: 100%;
+	height: 100%;
+}
+
+#player {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	/* mix-blend-mode: screen; */
+	mix-blend-mode: lighten;
+	overflow: hidden;
+	transition: all 1s ease 0s;
+
+}
+
+#streamingAudio {
+	width: 200px;
+	height: 50px;
+	position: fixed;
+	top: 50%;
+	right: 20%;
+	display: block;
+}
+
+#videoPlayOverlay {
+	position: absolute;
+	font-size: 1.8em;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	color: var(--colour2)
+}
+
+
+
+#overlay {
+	width: 100%;
+	height: 100%;
+	z-index: 20;
+	position: absolute;
+	color: var(--colour2);
+	pointer-events: none;
+	overflow: hidden;
+}
+
+
+#overlay button:active {
+	border: 3px solid var(--colour3);
+	background-color: var(--colour7);
+	padding-left: 0.55rem;
+	padding-top: 0.55rem;
+}
+
+
+
+#controls {
+	position: absolute;
+	top: 2%;
+	left: 3%;
+	font-family: 'Michroma', sans-serif;
+	pointer-events: all;
+	display: none;
+
+}
+
+#controls>* {
+	margin-bottom: 0.5rem;
+	border-radius: 50%;
+	display: block;
+	height: 2rem;
+	line-height: 1.75rem;
+	padding: 0.5rem;
+}
+
+#controls #additionalinfo {
+	text-align: center;
+	font-family: 'Montserrat', sans-serif;
+}
+
+#unrealengine {
+	position: absolute;
+	bottom: 5%;
+	right: 10%;
+	font-family: 'Michroma', sans-serif;
+	pointer-events: all;
+	width: min-content;
+}
+
+#unrealengine p {
+	visibility: hidden;
+	width: 15rem;
+}
+
+#connection {
+	position: absolute;
+	top: calc(100vh * 0.02);
+	right: calc(100vh * 0.2);
+	font-family: 'Michroma', sans-serif;
+	height: calc(100vh * 0.04);
+	width: calc(100vh * 0.04);
+	pointer-events: all;
+	transform: translateX(calc(100vh * 0.3));
+	transition: all 1s ease 0s;
+
+}
+
+
+.loginbox {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 100vh;
+	z-index: 25;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+}
+
+.userbox {
+	width: calc(100vh * 0.32);
+	border-radius: calc(100vh * 0.03);
+	background-color: #ffffff;
+	/* font-family: "宋体"; */
+	padding: calc(100vh * 0.025) calc(100vh * 0.03);
+	position: relative;
+	box-sizing: border-box;
+	transform: translateY(-40px);
+
+}
+
+.login_title_img {
+	width: 100%;
+	height: calc(100vh * 0.05);
+	display: flex;
+	margin-bottom: calc(100vh * 0.02);
+}
+
+.login_title {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+	font-size: calc(100vh * 0.03);
+}
+
+.login_title_img img {
+	height: 100%;
+}
+
+.language_box {
+	height: calc(100vh * 0.03);
+	position: absolute;
+	top: 0;
+	left: 10px;
+	transform: translateY(-100%);
+	font-family: "宋体";
+	display: flex;
+	justify-content: space-between;
+	color: #fff;
+	font-size: calc(100vh * 0.02);
+}
+
+
+.userbox input {
+	padding: 0 calc(100vh * 0.01);
+	font-size: calc(100vh * 0.015);
+	text-align: left;
+	border: 1px solid #ffffff00;
+	background-color: #ffffff00;
+	border-radius: calc(100vh * 0.01);
+}
+
+#dropdown {
+	width: 100%;
+	font-size: calc(100vh * 0.015);
+	padding: calc(100vh * 0.006);
+	box-sizing: border-box;
+	height: calc(100vh * 0.035);
+	border-radius: calc(100vh * 0.023);
+	margin-bottom: calc(100vh * 0.01);
+}
+
+input[type="text"] {
+	border: none;
+	/* 去除默认边框 */
+	outline: none;
+	/* 去除默认聚焦边框 */
+}
+
+input[type="text"]:focus {
+	outline: 2px solid white;
+	/* 聚焦时显示白色边框 */
+}
+
+input[type="password"] {
+	border: none;
+	/* 去除默认边框 */
+	outline: none;
+	/* 去除默认聚焦边框 */
+}
+
+input[type="password"]:focus {
+	outline: 2px solid rgba(255, 255, 255, 0);
+	/* 聚焦时显示白色边框 */
+}
+
+.user_input_box {
+	width: 100%;
+	height: calc(100vh * 0.035);
+	padding: calc(100vh * 0.006);
+	box-sizing: border-box;
+	color: #fff;
+	border: 1px solid #888888;
+	background-color: #fff;
+	border-radius: calc(100vh * 0.023);
+	display: flex;
+}
+
+.user_input_box img {
+	height: 100%;
+	transform: scale(0.5);
+}
+
+.userbox button {
+	color: #ffffff;
+	width: 100%;
+	height: calc(100vh * 0.035);
+	line-height: calc(100vh * 0.035);
+	border-radius: calc(100vh * 0.02);
+	margin: 0 auto;
+	background-color: #3aa770;
+	cursor: pointer;
+}
+
+.place_username {
+	text-align: center;
+	color: red;
+	font-size: calc(100vh * 0.012);
+	line-height: calc(100vh * 0.016);
+	height: calc(100vh * 0.016);
+	/* opacity: 0; */
+}
+
+.place_password {
+	text-align: center;
+	color: red;
+	font-size: calc(100vh * 0.012);
+	line-height: calc(100vh * 0.016);
+	height: calc(100vh * 0.016);
+	/* opacity: 0; */
+}
+
+.register_button {
+	float: right;
+	cursor: pointer;
+}
+
+.user_box {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 100vh;
+	background-color: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 23;
+}
+
+.user {
+	width: 300px;
+	text-align: center;
+}
+
+.user a {
+	color: #008cff;
+}
+
+.user_a {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+
+.reminder_msg {
+	/* width: 300px; */
+	line-height: 40px;
+	padding: 0 12px;
+	text-align: center;
+	border-radius: 5px;
+	background-color: #57acc234;
+	color: #fff;
+	animation: reminder_msg_Animation 2s;
+	animation-iteration-count: 1;
+	/* 设置为1表示不循环 */
+}
+
+@keyframes reminder_msg_Animation {
+
+	/* 0%表示动画开始时的状态 */
+	0% {
+		transform: translateY(100px);
+	}
+
+	/* 100%表示动画结束时的状态 */
+	100% {
+		transform: translateY(0px);
+	}
+}
+
+#loader {
+	width: 30px;
+	height: 30px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	border-radius: 50%;
+	border: 3px solid #ffffff80;
+	border-top: 3px solid #0586fe80;
+	border-bottom: 3px solid #0586fe80;
+	animation: spin 1.5s linear infinite;
+	display: none;
+	pointer-events: none;
+	z-index: 30;
+}
+
+#loader_cancellation {
+	width: 60px;
+	height: 30px;
+	border-radius: 10px;
+	position: fixed;
+	top: 55%;
+	left: 50%;
+	border: 1px solid #ccc;
+	background-color: #ffffff;
+	color: #0586fe80;
+	z-index: 30;
+	transform: translateX(-50%);
+	line-height: 30px;
+	text-align: center;
+	font-size: 15px;
+	display: none;
+	cursor: pointer;
+}
+
+
+@keyframes spin {
+	0% {
+		transform: translate(-50%, -50%) rotate(0deg);
+	}
+
+	100% {
+		transform: translate(-50%, -50%) rotate(360deg);
+	}
+}
+
+
+.User_Guide_box {
+	position: fixed;
+	width: 100%;
+	top: 60%;
+	color: #fff;
+	z-index: 30;
+}
+
+.Guide_table {
+	width: 50%;
+	text-align: center;
+	position: fixed;
+	top: 52%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: calc(100vh * 0.02);
+	color: #f5620c;
+	overflow-x: scroll;
+	white-space: nowrap;
+}
+
+.Guide_table::-webkit-scrollbar {
+	width: 2px;
+	height: 2px;
+}
+
+.Guide_table::-webkit-scrollbar-track {
+	border-radius: 1px 1px 1px 1px;
+}
+
+.Guide_table::-webkit-scrollbar-thumb {
+	background-color: rgba(255, 255, 255, 0);
+	border-radius: 1px;
+}
+
+#Guide_table_text {
+	padding: 0 calc(100vh * 0);
+}
+
+.Guide_box {
+	width: 100%;
+	height: 50px;
+	position: relative;
+	transform-style: preserve-3d;
+	color: #fff;
+	text-align: center;
+	font-size: calc(100vh * 0.015);
+}
+
+.User_Guide_text {
+	width: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	animation: taxt_a 30s linear infinite;
+}
+
+
+
+@keyframes taxt_a {
+	0% {
+		transform: translateY(calc(100vh * 0)) translateZ(calc(100vh * 0.1)) scale(2);
+	}
+
+	12.5% {
+		transform: translateY(calc(100vh *-0.0375)) translateZ(calc(100vh * 0.5)) scale(1.5);
+	}
+
+	25% {
+		transform: translateY(calc(100vh *-0.05)) translateZ(calc(100vh * 0)) scale(1);
+	}
+
+	37.5% {
+		transform: translateY(calc(100vh *-0.0375)) translateZ(calc(100vh * 0)) scale(0.75);
+	}
+
+	50% {
+		transform: translateY(calc(100vh * 0)) translateZ(calc(100vh * -0.1)) scale(0.5);
+	}
+
+	62.5% {
+		transform: translateY(calc(100vh * 0.0375)) translateZ(calc(100vh * 0)) scale(0.75);
+	}
+
+	75% {
+		transform: translateY(calc(100vh * 0.05)) translateZ(calc(100vh * 0)) scale(1);
+	}
+
+	87.5% {
+		transform: translateY(calc(100vh * 0.0375)) translateZ(calc(100vh * 0)) scale(1.5);
+	}
+
+	100% {
+		transform: translateY(calc(100vh * 0)) translateZ(calc(100vh * 0.1)) scale(2);
+	}
+}
+
+.User_Chat_box {
+	position: fixed;
+	top: 55%;
+	color: #fff;
+	width: 70%;
+	height: 25%;
+	left: 50%;
+	padding: calc(100vh * 0.03);
+	box-sizing: border-box;
+	box-shadow: 0px 0px 10px 2px rgba(255, 255, 255, 0.3);
+	transform: translateX(-50%);
+	opacity: 0;
+	overflow: hidden;
+}
+
+.User_Chat_box_data {
+	padding-bottom: calc(100vh * 0.05);
+	font-size: calc(100vh * 0.012);
+	line-height: calc(100vh * 0.02);
+}
+
+
+.Tooltip {
+	font-family: "宋体";
+	line-height: 16px;
+	position: absolute;
+	top: 16%;
+	left: 5px;
+	width: 30%;
+	color: #fff;
+	z-index: 18;
+	font-size: calc(100vh * 0.012);
+	box-sizing: border-box;
+	padding: 10px 5px;
+	background-color: #57acc234;
+	border-radius: 5px;
+}
+
+.reminder {
+	width: 100%;
+	position: fixed;
+	display: flex;
+	justify-content: center;
+	top: 5%;
+	left: 0;
+	z-index: 25;
+}
+
+.ak {
+	z-index: 30;
+	position: fixed;
+	bottom: 8%;
+	left: 8%;
+	width: calc(100vh * 0.05);
+	height: calc(100vh * 0.05);
+	border-radius: 50%;
+
+}
+
+
+.ak img {
+	width: 100%;
+	height: 100%;
+}
+
+
+/* 对话框聊天内容部分框架 */
+.chat_dialog_box {
+	position: fixed;
+	top: 3%;
+	left: 3%;
+	width: calc(100vw * 0.25);
+	color: #fff;
+	opacity: 0;
+	z-index: 30;
+	font-size: calc(100vh * 0.01);
+}
+
+.chat_dialog_box_panel {
+	width: 100%;
+
+}
+
+/* 对话框聊天内容部分 */
+.chat_dialog_panel {
+	width: 100%;
+}
+
+.chat_messages_a {
+	padding: calc(100vh * 0.01) calc(100vh * 0.01);
+	color: #5cd9ff;
+}
+
+.chat_messages_b {
+	padding: calc(100vh * 0.01) calc(100vh * 0.01);
+	color: #d8fff1;
+}
+
+
+
+
